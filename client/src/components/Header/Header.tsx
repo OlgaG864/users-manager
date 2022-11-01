@@ -9,6 +9,7 @@ interface HeaderState {
   fullName: string;
   email: string;
   status: Array<StatusType>;
+  selectedStatus: StatusType;
 }
 
 class Header extends React.Component<HeaderProps, HeaderState> {
@@ -18,7 +19,8 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     this.state = {
       fullName: "",
       email: "",
-      status: [],
+      status: ["active", "banned", "expired"],
+      selectedStatus: "active",
     };
   }
 
@@ -35,12 +37,13 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     this.props.addUser({
       fullName: this.state.fullName,
       email: this.state.email,
-      status: this.state.status,
+      status: this.state.selectedStatus,
     });
 
     this.setState(() => ({
       fullName: "",
       email: "",
+      status: [],
     }));
   };
 
@@ -68,7 +71,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
           <select
             className="form-control "
             name="status"
-            value={this.state.status}
+            value={this.state.selectedStatus}
           >
             {this.state.status.map((status) => (
               <option key={status} value={status}>
