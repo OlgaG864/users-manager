@@ -8,7 +8,7 @@ interface HeaderProps {
 interface HeaderState {
   fullName: string;
   email: string;
-  status: StatusType;
+  status: Array<StatusType>;
 }
 
 class Header extends React.Component<HeaderProps, HeaderState> {
@@ -18,7 +18,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     this.state = {
       fullName: "",
       email: "",
-      status: "active",
+      status: [],
     };
   }
 
@@ -65,8 +65,16 @@ class Header extends React.Component<HeaderProps, HeaderState> {
             className="form-control mx-3"
           />
 
-          <select className="form-control " name="status">
-            <option>{this.state.status}</option>
+          <select
+            className="form-control "
+            name="status"
+            value={this.state.status}
+          >
+            {this.state.status.map((status) => (
+              <option key={status} value={status}>
+                {status}
+              </option>
+            ))}
           </select>
 
           <button onClick={this.addUser} className="btn btn-info text-white ">
